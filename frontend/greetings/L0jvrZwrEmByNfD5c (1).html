@@ -1,0 +1,268 @@
+<html><head><base href="https://websim.com/">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8ff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.header {
+    background-color: #0066cc;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header button {
+    background-color: white;
+    color: #0066cc;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0 5px;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header button:hover {
+    background-color: #e6f2ff;
+    color: #004080;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.menu-title {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 20px;
+}
+
+.container {
+    max-width: 600px;
+    width: 90%;
+    margin: auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    padding: 40px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: fadeIn 0.5s ease-out;
+    z-index: 10;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -48%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+h1 {
+    color: #0066cc;
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.description {
+    color: #666;
+    margin-bottom: 40px;
+    line-height: 1.6;
+    font-size: 1.2em;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.button-container button {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button-container button:hover {
+    background-color: #0052a3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.queue-line {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    animation: moveQueue 30s linear infinite;
+}
+
+.queue-person {
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0, 102, 204, 0.2);
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+@keyframes moveQueue {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100vw); }
+}
+
+@media screen and (max-width: 768px) {
+    .menu-title {
+        display: none;
+    }
+    
+    .header {
+        justify-content: space-between;
+    }
+    
+    .header-left, .header-right {
+        flex: 1;
+    }
+    
+    .header-left {
+        justify-content: flex-start;
+    }
+    
+    .header-right {
+        justify-content: flex-end;
+    }
+}
+</style>
+</head>
+<body>
+<div class="header">
+    <div class="header-left">
+        <button onclick="showQueue()">Queue</button>
+        <button onclick="showAbout()">About</button>
+    </div>
+    <div class="menu-title">QUEUE.COM</div>
+    <div class="header-right">
+        <button onclick="showContact()">Contact</button>
+        <button onclick="login()">Login</button>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Queue.com</h1>
+    <p class="description">
+        Cut the wait. Dominate the queue. Join or create queues effortlessly with Queue.com. Save your time.
+    </p>
+    
+    <div class="button-container">
+        <button onclick="createQueue()">Create</button>
+        <button onclick="joinQueue()">Join</button>
+    </div>
+</div>
+
+<div class="background-animation" id="backgroundAnimation"></div>
+
+<script>
+function showQueue() {
+    alert("Showing Queue");
+}
+
+function showAbout() {
+    alert("Showing About Page");
+}
+
+function showContact() {
+    alert("Showing Contact Page");
+}
+
+function login() {
+    alert("Opening Login Form");
+}
+
+function createQueue() {
+    alert("Creating a new queue");
+}
+
+function joinQueue() {
+    alert("Joining existing queue");
+}
+
+// Add animation to container on page load
+document.addEventListener('DOMContentLoaded', (event) => {
+    const container = document.querySelector('.container');
+    container.style.opacity = '0';
+    container.style.transform = 'translate(-50%, -48%)';
+    setTimeout(() => {
+        container.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+        container.style.opacity = '1';
+        container.style.transform = 'translate(-50%, -50%)';
+    }, 100);
+
+    // Create queue lines
+    const backgroundAnimation = document.getElementById('backgroundAnimation');
+    for (let i = 0; i < 5; i++) {
+        createQueueLine(backgroundAnimation, i * 20);
+    }
+});
+
+function createQueueLine(container, yPosition) {
+    const queueLine = document.createElement('div');
+    queueLine.className = 'queue-line';
+    queueLine.style.top = `${yPosition}%`;
+    
+    const numPeople = 5 + Math.floor(Math.random() * 5);
+    for (let i = 0; i < numPeople; i++) {
+        const person = document.createElement('div');
+        person.className = 'queue-person';
+        queueLine.appendChild(person);
+    }
+
+    queueLine.style.animationDuration = `${30 + Math.random() * 20}s`;
+    queueLine.style.animationDelay = `-${Math.random() * 30}s`;
+
+    container.appendChild(queueLine);
+}
+</script>
+</body></html>

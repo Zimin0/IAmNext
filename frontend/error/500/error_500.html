@@ -1,0 +1,248 @@
+<html><head><base href="https://websim.com/">
+<style>
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #e6f2ff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 102, 204, 0.1);
+  padding: 30px;
+  width: 80%;
+  max-width: 500px;
+  margin-top: 70px;
+  animation: fadeIn 0.5s ease-out;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  color: #0066cc;
+  font-size: 72px;
+  margin-bottom: 10px;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+p {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.header {
+  background-color: #0066cc;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header button {
+  background-color: white;
+  color: #0066cc;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0 5px;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.header button:hover {
+  background-color: #e6f2ff;
+  color: #004080;
+  transform: translateY(-2px);
+}
+
+.menu-title {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 20px;
+}
+
+.home-button {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.home-button:hover {
+  background-color: #004080;
+  transform: translateY(-2px);
+}
+
+.error-image {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .menu-title {
+    display: none;
+  }
+  
+  .header {
+    justify-content: space-between;
+  }
+  
+  .header-left, .header-right {
+    flex: 1;
+  }
+  
+  .header-left {
+    justify-content: flex-start;
+  }
+  
+  .header-right {
+    justify-content: flex-end;
+  }
+
+  h1 {
+    font-size: 48px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .error-image {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@keyframes shakeServer {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  25% { transform: translateX(-2px) rotate(-1deg); }
+  50% { transform: translateX(2px) rotate(1deg); }
+  75% { transform: translateX(-1px) rotate(-0.5deg); }
+}
+
+.server {
+  animation: shakeServer 0.5s infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes personKick {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(10deg); }
+}
+
+.person {
+  animation: personKick 0.5s infinite alternate;
+  transform-origin: top left;
+}
+
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-left">
+    <button onclick="showQueue()">Queue</button>
+    <button onclick="showAbout()">About</button>
+  </div>
+  <div class="menu-title">QUEUE.COM</div>
+  <div class="header-right">
+    <button onclick="showContact()">Contact</button>
+    <button onclick="login()">Login</button>
+  </div>
+</div>
+
+<div class="container">
+  <svg class="error-image" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="200" height="200" fill="#e6f2ff" rx="20" ry="20"></rect>
+    <g class="server">
+      <rect x="100" y="50" width="80" height="130" fill="#0066cc" rx="5" ry="5"></rect>
+      <circle cx="140" cy="80" r="5" fill="#e6f2ff"></circle>
+      <circle cx="140" cy="100" r="5" fill="#e6f2ff"></circle>
+      <circle cx="140" cy="120" r="5" fill="#e6f2ff"></circle>
+    </g>
+    <g class="person">
+      <circle cx="80" cy="100" r="15" fill="#0066cc"></circle>
+      <line x1="80" y1="115" x2="80" y2="150" stroke="#0066cc" stroke-width="2"></line>
+      <line x1="80" y1="120" x2="100" y2="110" stroke="#0066cc" stroke-width="2"></line>
+      <line x1="80" y1="120" x2="60" y2="110" stroke="#0066cc" stroke-width="2"></line>
+      <line x1="80" y1="150" x2="60" y2="170" stroke="#0066cc" stroke-width="2"></line>
+      <line x1="80" y1="150" x2="110" y2="140" stroke="#0066cc" stroke-width="2"></line>
+    </g>
+    <text x="100" y="30" font-family="Arial" font-size="24" text-anchor="middle" fill="#0066cc">500</text>
+  </svg>
+  <h1>Oops!</h1>
+  <p>Our server is having a bit of a meltdown. We're working on fixing it!</p>
+  <button class="home-button" onclick="goHome()">Back to Home</button>
+</div>
+
+<script>
+function showQueue() {
+  alert("Showing Queue");
+}
+
+function showAbout() {
+  alert("Showing About Page");
+}
+
+function showContact() {
+  alert("Showing Contact Page");
+}
+
+function login() {
+  alert("Opening Login Form");
+}
+
+function goHome() {
+  window.location.href = "https://websim.com/";
+}
+
+// Add animation to 500 elements on page load
+document.addEventListener('DOMContentLoaded', (event) => {
+  const errorElements = document.querySelectorAll('.error-image, h1, p, .home-button');
+  errorElements.forEach((element, index) => {
+    element.style.animation = `fadeIn 0.5s ease-out ${index * 0.1}s both`;
+  });
+});
+</script>
+</body></html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html><html><head><base href="https://websim.com/">
+<style>
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #e6f2ff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 102, 204, 0.1);
+  padding: 30px;
+  width: 80%;
+  max-width: 500px;
+  margin-top: 70px;
+  animation: fadeIn 0.5s ease-out;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  color: #0066cc;
+  font-size: 72px;
+  margin-bottom: 10px;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+p {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.header {
+  background-color: #0066cc;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header button {
+  background-color: white;
+  color: #0066cc;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0 5px;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.header button:hover {
+  background-color: #e6f2ff;
+  color: #004080;
+  transform: translateY(-2px);
+}
+
+.menu-title {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 20px;
+}
+
+.home-button {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.home-button:hover {
+  background-color: #004080;
+  transform: translateY(-2px);
+}
+
+.error-image {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .menu-title {
+    display: none;
+  }
+  
+  .header {
+    justify-content: space-between;
+  }
+  
+  .header-left, .header-right {
+    flex: 1;
+  }
+  
+  .header-left {
+    justify-content: flex-start;
+  }
+  
+  .header-right {
+    justify-content: flex-end;
+  }
+
+  h1 {
+    font-size: 48px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .error-image {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@keyframes moveInQueue {
+  0% { transform: translateX(-50px); opacity: 1; }
+  90% { transform: translateX(230px); opacity: 1; }
+  100% { transform: translateX(250px); opacity: 0; }
+}
+
+.person {
+  animation: moveInQueue 4s infinite linear;
+}
+
+.queue-line {
+  stroke-dasharray: 5, 5;
+  animation: moveQueueLine 0.5s linear infinite;
+}
+
+@keyframes moveQueueLine {
+  to { stroke-dashoffset: -10; }
+}
+
+@keyframes walk {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-2px); }
+  75% { transform: translateY(2px); }
+}
+
+.leg-left, .leg-right, .arm-left, .arm-right {
+  animation: walk 0.5s infinite alternate;
+}
+
+.leg-right, .arm-right {
+  animation-delay: 0.25s;
+}
+
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-left">
+    <button onclick="showQueue()">Queue</button>
+    <button onclick="showAbout()">About</button>
+  </div>
+  <div class="menu-title">QUEUE.COM</div>
+  <div class="header-right">
+    <button onclick="showContact()">Contact</button>
+    <button onclick="login()">Login</button>
+  </div>
+</div>
+
+<div class="container">
+  <svg class="error-image" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="200" height="200" fill="#e6f2ff" rx="20" ry="20">
+</rect>
+    <line x1="25" y1="150" x2="175" y2="150" stroke="#0066cc" stroke-width="2" class="queue-line"></line>
+    <g class="person">
+      <circle cx="25" cy="125" r="15" fill="#0066cc"></circle>
+      <line x1="25" y1="140" x2="25" y2="170" stroke="#0066cc" stroke-width="2"></line>
+      <line x1="25" y1="150" x2="10" y2="160" stroke="#0066cc" stroke-width="2" class="arm-left"></line>
+      <line x1="25" y1="150" x2="40" y2="160" stroke="#0066cc" stroke-width="2" class="arm-right"></line>
+      <line x1="25" y1="170" x2="15" y2="190" stroke="#0066cc" stroke-width="2" class="leg-left"></line>
+      <line x1="25" y1="170" x2="35" y2="190" stroke="#0066cc" stroke-width="2" class="leg-right"></line>
+    </g>
+    <text x="100" y="50" font-family="Arial" font-size="24" text-anchor="middle" fill="#0066cc">404</text>
+  </svg>
+  <h1>Oops!</h1>
+  <p>The page you're looking for seems to have gotten lost in the queue.</p>
+  <button class="home-button" onclick="goHome()">Back to Home</button>
+</div>
+
+<script>
+function showQueue() {
+  alert("Showing Queue");
+}
+
+function showAbout() {
+  alert("Showing About Page");
+}
+
+function showContact() {
+  alert("Showing Contact Page");
+}
+
+function login() {
+  alert("Opening Login Form");
+}
+
+function goHome() {
+  window.location.href = "https://websim.com/";
+}
+
+// Add animation to 404 elements on page load
+document.addEventListener('DOMContentLoaded', (event) => {
+  const errorElements = document.querySelectorAll('.error-image, h1, p, .home-button');
+  errorElements.forEach((element, index) => {
+    element.style.animation = `fadeIn 0.5s ease-out ${index * 0.1}s both`;
+  });
+});
+</script>
+</body></html>

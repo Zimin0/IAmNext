@@ -1,0 +1,236 @@
+<!DOCTYPE html><html><head><base href="https://websim.com/">
+<style>
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #e6f2ff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 102, 204, 0.1);
+  padding: 30px;
+  width: 80%;
+  max-width: 500px;
+  margin-top: 70px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  color: #0066cc;
+  text-align: center;
+  margin-bottom: 30px;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.header {
+  background-color: #0066cc;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header button {
+  background-color: white;
+  color: #0066cc;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0 5px;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.header button:hover {
+  background-color: #e6f2ff;
+  color: #004080;
+  transform: translateY(-2px);
+}
+
+.menu-title {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 20px;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 0 20px rgba(0, 102, 204, 0.5);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nickname {
+  font-size: 24px;
+  font-weight: bold;
+  color: #0066cc;
+  margin-bottom: 10px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #003366;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #666;
+}
+
+@media screen and (max-width: 768px) {
+  .menu-title {
+    display: none;
+  }
+  
+  .header {
+    justify-content: space-between;
+  }
+  
+  .header-left, .header-right {
+    flex: 1;
+  }
+  
+  .header-left {
+    justify-content: flex-start;
+  }
+  
+  .header-right {
+    justify-content: flex-end;
+  }
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-left">
+    <button onclick="showQueue()">Queue</button>
+    <button onclick="showAbout()">About</button>
+  </div>
+  <div class="menu-title">QUEUE.COM</div>
+  <div class="header-right">
+    <button onclick="showContact()">Contact</button>
+    <button onclick="login()">Login</button>
+  </div>
+</div>
+
+<div class="container" style="margin-top: 80px;">
+  <h1></h1>
+  
+  <div class="profile">
+    <div class="avatar">
+      <img src="https://websim.com/avatar.jpg" alt="User avatar, smiling person with short dark hair" width="200" height="200" style="box-shadow: 0 0 20px rgba(0, 102, 204, 0.5);">
+    </div>
+    <div class="nickname" style="font-size: 32px;">QueueMaster42</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-value" id="created-queues">15</div>
+      <div class="stat-label">Queues Created</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="avg-position">3.7</div>
+      <div class="stat-label">Avg. Queue Position</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showQueue() {
+  alert("Showing Queue");
+}
+
+function showAbout() {
+  alert("Showing About Page");
+}
+
+function showContact() {
+  alert("Showing Contact Page");
+}
+
+function login() {
+  alert("Opening Login Form");
+}
+
+// Add animation to profile elements on page load
+document.addEventListener('DOMContentLoaded', (event) => {
+  const profileElements = document.querySelectorAll('.profile, .stats');
+  profileElements.forEach((element, index) => {
+    element.style.animation = `fadeIn 0.5s ease-out ${index * 0.1}s both`;
+  });
+});
+
+// Simulating dynamic stats update
+setInterval(() => {
+  const createdQueues = document.getElementById('created-queues');
+  const avgPosition = document.getElementById('avg-position');
+  
+  createdQueues.textContent = Math.floor(Math.random() * 10) + 10; // Random number between 10 and 19
+  avgPosition.textContent = (Math.random() * 5 + 1).toFixed(1); // Random number between 1.0 and 6.0
+}, 5000);
+</script>
+</body></html>

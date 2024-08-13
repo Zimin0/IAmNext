@@ -1,0 +1,406 @@
+<html><head><base href="https://queue-system.example.com">
+<title>Minimalist Queue System</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff;
+        color: #00008b;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+    }
+    .header {
+        background-color: #0066cc;
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        animation: slideDown 0.5s ease-out;
+    }
+    @keyframes slideDown {
+        from { transform: translateY(-100%); }
+        to { transform: translateY(0); }
+    }
+    .header-left, .header-right {
+        display: flex;
+        align-items: center;
+    }
+    .header button {
+        background-color: white;
+        color: #0066cc;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        margin: 0 5px;
+        transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .header button:hover {
+        background-color: #e6f2ff;
+        color: #004080;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .menu-title {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0 20px;
+    }
+    .main-content {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: 100px;
+        padding: 0 20px;
+    }
+    .container {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 500px;
+        width: 100%;
+        animation: fadeIn 0.5s ease-out;
+    }
+    .side-block {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 0 20px;
+        width: 200px;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.5s ease-out;
+        position: relative;
+        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    }
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 24px;
+        color: #0066cc;
+        transition: color 0.3s, background-color 0.3s, box-shadow 0.3s;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background-color: #e6f2ff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .close-btn:hover {
+        color: #004080;
+        background-color: #b3d9ff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+        margin-bottom: 1rem;
+        color: #0066cc;
+    }
+    #queue-display {
+        margin: 1rem 0;
+        padding: 1rem;
+        background-color: #e6f2ff;
+        border-radius: 5px;
+        min-height: 200px;
+        max-width: 350px;
+        width: 100%;
+        margin: 1rem auto;
+    }
+    .queue-item {
+        margin: 0.5rem 0;
+        padding: 0.5rem;
+        background-color: #b3d9ff;
+        border-radius: 3px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .free-place {
+        margin: 0.5rem 0;
+        padding: 0.5rem;
+        background-color: #90ee90;
+        border-radius: 3px;
+        color: #006400;
+    }
+    button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        color: white;
+        background-color: #0066cc;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    button:hover {
+        background-color: #004c99;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    #nickname-form {
+        margin: 1rem 0;
+    }
+    #nickname-input {
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: 1px solid #0066cc;
+        border-radius: 5px;
+        margin-right: 0.5rem;
+    }
+    .remaining-places {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #0066cc;
+    }
+    @media screen and (max-width: 1024px) {
+        .main-content {
+            flex-direction: column;
+            align-items: center;
+        }
+        .side-block {
+            margin: 20px 0;
+            width: 90%;
+            max-width: 500px;
+            height: auto;
+        }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+        }
+        .side-block:nth-child(1) {
+            order: 1;
+        }
+        .side-block:nth-child(3) {
+            order: 2;
+        }
+        .container {
+            order: 3;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        .menu-title {
+            display: none;
+        }
+        .header {
+            justify-content: space-between;
+        }
+        .header-left, .header-right {
+            flex: 1;
+        }
+        .header-left {
+            justify-content: flex-start;
+        }
+        .header-right {
+            justify-content: flex-end;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="header">
+    <div class="header-left">
+        <button onclick="showQueue()">Queue</button>
+        <button onclick="showAbout()">About</button>
+    </div>
+    <div class="menu-title">QUEUE.COM</div>
+    <div class="header-right">
+        <button onclick="showContact()">Contact</button>
+        <button onclick="login()">Login</button>
+        <button id="showBlocksBtn" onclick="toggleBlocks()" style="display: none;">Show Blocks</button>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="side-block" id="description-block">
+        <span class="close-btn" onclick="hideBlock('description-block')">×</span>
+        <h2>Queue Description</h2>
+        <p>This is a minimalist queue system for managing waiting lists efficiently.</p>
+    </div>
+
+    <div class="container">
+        <h1>Minimalist Queue System</h1>
+        <form id="nickname-form" method="GET" action="queue">
+            <input type="text" id="nickname-input" name="nickname" placeholder="Enter your nickname" required="">
+            <button type="submit">Join Queue</button>
+        </form>
+        <div id="queue-display"></div>
+    </div>
+
+    <div class="side-block" id="remaining-places-block">
+        <span class="close-btn" onclick="hideBlock('remaining-places-block')">×</span>
+        <h2>Remaining Places</h2>
+        <div class="remaining-places" id="remaining-places"></div>
+    </div>
+</div>
+
+<script>
+    const queueDisplay = document.getElementById('queue-display');
+    const nicknameForm = document.getElementById('nickname-form');
+    const nicknameInput = document.getElementById('nickname-input');
+    const remainingPlacesDisplay = document.getElementById('remaining-places');
+    const showBlocksBtn = document.getElementById('showBlocksBtn');
+    let queue = ['Alice', 'Bob', 'Charlie'];
+    const maxQueueSize = 10;
+
+    function updateQueueDisplay() {
+        queueDisplay.innerHTML = '';
+        queue.forEach((nickname, index) => {
+            const queueItem = document.createElement('div');
+            queueItem.className = 'queue-item';
+            queueItem.innerHTML = `
+                <span>${index + 1}. ${nickname}</span>
+                <button onclick="leaveQueue(${index})">Leave</button>
+            `;
+            queueDisplay.appendChild(queueItem);
+        });
+
+        // Add free places
+        for (let i = queue.length; i < maxQueueSize; i++) {
+            const freePlace = document.createElement('div');
+            freePlace.className = 'free-place';
+            freePlace.textContent = `${i + 1}. Free Place`;
+            queueDisplay.appendChild(freePlace);
+        }
+
+        updateRemainingPlaces();
+    }
+
+    function updateRemainingPlaces() {
+        const freePlaces = maxQueueSize - queue.length;
+        remainingPlacesDisplay.textContent = freePlaces;
+    }
+
+    function joinQueue(nickname) {
+        if (queue.length < maxQueueSize) {
+            queue.push(nickname);
+            updateQueueDisplay();
+            return true;
+        } else {
+            alert("The queue is full. Please try again later.");
+            return false;
+        }
+    }
+
+    function leaveQueue(index) {
+        queue.splice(index, 1);
+        updateQueueDisplay();
+    }
+
+    nicknameForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const nickname = nicknameInput.value.trim();
+        if (nickname && joinQueue(nickname)) {
+            nicknameInput.value = '';
+        }
+    });
+
+    // Check URL parameters for nickname
+    const urlParams = new URLSearchParams(window.location.search);
+    const nicknameParam = urlParams.get('nickname');
+
+    if (nicknameParam) {
+        joinQueue(nicknameParam);
+    }
+
+    // Initialize queue display
+    updateQueueDisplay();
+
+    function showQueue() {
+        alert("Showing Queue");
+    }
+
+    function showAbout() {
+        alert("Showing About Page");
+    }
+
+    function showContact() {
+        alert("Showing Contact Page");
+    }
+
+    function login() {
+        alert("Opening Login Form");
+    }
+
+    function hideBlock(blockId) {
+        const block = document.getElementById(blockId);
+        block.style.opacity = '0';
+        block.style.transform = 'translateY(-20px)';
+        setTimeout(() => {
+            block.style.display = 'none';
+            updateShowBlocksButton();
+        }, 300);
+    }
+
+    function showBlock(blockId) {
+        const block = document.getElementById(blockId);
+        block.style.display = 'flex';
+        setTimeout(() => {
+            block.style.opacity = '1';
+            block.style.transform = 'translateY(0)';
+            updateShowBlocksButton();
+        }, 10);
+    }
+
+    function toggleBlocks() {
+        const blocks = ['description-block', 'remaining-places-block'];
+        blocks.forEach(blockId => {
+            const block = document.getElementById(blockId);
+            if (block.style.display === 'none') {
+                showBlock(blockId);
+            }
+        });
+        updateShowBlocksButton();
+    }
+
+    function updateShowBlocksButton() {
+        const descriptionBlock = document.getElementById('description-block');
+        const remainingPlacesBlock = document.getElementById('remaining-places-block');
+        const hiddenBlocksCount = [descriptionBlock, remainingPlacesBlock].filter(block => block.style.display === 'none').length;
+
+        if (hiddenBlocksCount > 0) {
+            showBlocksBtn.style.display = 'inline-block';
+        } else {
+            showBlocksBtn.style.display = 'none';
+        }
+    }
+
+    // Add animation to container and side blocks on page load
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const elements = document.querySelectorAll('.container, .side-block');
+        elements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(-20px)';
+            setTimeout(() => {
+                el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, 100);
+        });
+        updateShowBlocksButton();
+    });
+</script>
+
+</body></html>

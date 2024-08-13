@@ -1,0 +1,274 @@
+<html><head><base href="https://websim.com/">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8ff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    background-color: #0066cc;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header button {
+    background-color: white;
+    color: #0066cc;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0 5px;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header button:hover {
+    background-color: #e6f2ff;
+    color: #004080;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.menu-title {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 20px;
+}
+
+.container {
+    max-width: 600px;
+    width: 90%;
+    margin: 100px auto 0;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    padding: 40px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    color: #0066cc;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+
+.create-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.create-form input[type="text"],
+.create-form input[type="number"],
+.create-form textarea,
+.create-form label,
+::placeholder {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+.create-form .input-wrapper {
+    position: relative;
+}
+
+.create-form .required::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: #0066cc;
+    border-radius: 50%;
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.create-form input[type="text"],
+.create-form input[type="number"],
+.create-form textarea {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.create-form input[type="text"]:focus,
+.create-form input[type="number"]:focus,
+.create-form textarea:focus {
+    outline: none;
+    border-color: #0066cc;
+}
+
+.create-form label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+}
+
+.create-form input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.create-form button {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.create-form button:hover {
+    background-color: #0052a3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+@media screen and (max-width: 768px) {
+    .menu-title {
+        display: none;
+    }
+    
+    .header {
+        justify-content: space-between;
+    }
+    
+    .header-left, .header-right {
+        flex: 1;
+    }
+    
+    .header-left {
+        justify-content: flex-start;
+    }
+    
+    .header-right {
+        justify-content: flex-end;
+    }
+}
+</style>
+</head>
+<body>
+<div class="header">
+    <div class="header-left">
+        <button onclick="showQueue()">Queue</button>
+        <button onclick="showAbout()">About</button>
+    </div>
+    <div class="menu-title">QUEUE.COM</div>
+    <div class="header-right">
+        <button onclick="showContact()">Contact</button>
+        <button onclick="login()">Login</button>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Create Queue</h1>
+    
+    <form class="create-form" onsubmit="createQueue(event)">
+        <div class="input-wrapper required">
+            <input type="text" id="queueName" placeholder="Queue Name" required>
+        </div>
+        <div class="input-wrapper required">
+            <input type="number" id="maxParticipants" placeholder="Maximum Number of Participants" min="1" required>
+        </div>
+        <div class="input-wrapper">
+            <textarea id="queueDescription" placeholder="Queue Description" rows="4"></textarea>
+        </div>
+        <label>
+            <input type="checkbox" id="privateAccess">
+            Access by link only
+        </label>
+        <button type="submit">Create Queue</button>
+    </form>
+</div>
+
+<script>
+function showQueue() {
+    alert("Displaying Queue");
+}
+
+function showAbout() {
+    alert("Showing About Page");
+}
+
+function showContact() {
+    alert("Showing Contact Page");
+}
+
+function login() {
+    alert("Redirecting to Login Page");
+}
+
+function createQueue(event) {
+    event.preventDefault();
+    const queueName = document.getElementById('queueName').value;
+    const maxParticipants = document.getElementById('maxParticipants').value;
+    const queueDescription = document.getElementById('queueDescription').value;
+    const privateAccess = document.getElementById('privateAccess').checked;
+    
+    // In a real application, there would be a server request here to create the queue
+    
+    let message = `Queue "${queueName}" created. Maximum participants: ${maxParticipants}. ${privateAccess ? 'Access by link only.' : 'Public access.'}`;
+    if (queueDescription) {
+        message += `\nDescription: ${queueDescription}`;
+    }
+    
+    alert(message);
+}
+
+// Add animation to container on page load
+document.addEventListener('DOMContentLoaded', (event) => {
+    const container = document.querySelector('.container');
+    container.style.opacity = '0';
+    container.style.transform = 'translateY(20px)';
+    setTimeout(() => {
+        container.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+    }, 100);
+});
+</script>
+</body></html>
