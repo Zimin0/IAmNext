@@ -6,6 +6,9 @@ pydantic[email]==2.5.3
 pytest==7.4.0
 httpx==0.24.1
 
+### Unique ids ###
+shortuuid==1.0.13
+
 ### Files ###
 python-multipart==0.0.7
 
