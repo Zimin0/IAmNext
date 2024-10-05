@@ -11,7 +11,7 @@ from db.models.user import User
 from apis.v1.utils import authenticate_user
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
 
 @router.post('/register', status_code=status.HTTP_201_CREATED)
 async def register_user(user: UserCreate, db: Session = Depends(get_db)):

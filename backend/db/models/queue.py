@@ -5,12 +5,14 @@ from sqlalchemy.orm import relationship
 
 class Queue(Base):
     __tablename__ = 'queues'
-    id = Column(String(22), index=True, primary_key=True, unique=True, default=generate_numeric_uuid)    
-    name = Column(String, index=True) # минимальная длина в 5 символов
-    # slug = Column(String, index=True, unique=True) # для использования в ссылке
+    id = Column(String(22), index=True, primary_key=True, unique=True, default=generate_numeric_uuid)
+    name = Column(String, index=True)  # минимальная длина в 5 символов
     discription = Column(String, nullable=True)
     max_amount_people = Column(Integer, default=1)
-    owner_id = Column(String, ForeignKey("users.id", onupdate="CASCADE", ondelete="CASCADE"), nullable=False)
+    owner_id = Column(Integer, ForeignKey("users.id", onupdate="CASCADE", ondelete="CASCADE"), nullable=False)
 
-    owner = relationship("User", back_populates="queues")
+    # Связь с пользователем (владельцем очереди)
+    owner = relationship("User", back_populates="owned_queues")
+
+    # Связь с UserInQueue (пользователи в очереди)
     users = relationship("UserInQueue", back_populates="queue", cascade="all, delete-orphan")

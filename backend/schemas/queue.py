@@ -16,6 +16,6 @@ class QueueGet(BaseModel):
 class QueueCreate(BaseModel):
     """Create a new queue in database."""
     name: str = Field(..., min_length=8, max_length=60)
-    discription: str = Field(..., default="No description.")
-    max_amount_people: int = Field(..., default=1, ge=0, lt=100) # ??????
+    discription: str = Field(default="No description.")
+    max_amount_people: int = Field(default=1, ge=0, lt=100) # ??????
     owner_id: int

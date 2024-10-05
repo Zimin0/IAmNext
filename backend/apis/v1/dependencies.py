@@ -9,7 +9,7 @@ from db.models.user import User
 from db.crud.user import read_user_db
 from core.hashing import Hasher
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
 
 def _get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     """ Возвращает пользователя по токену. """
