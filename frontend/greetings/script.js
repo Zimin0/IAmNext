@@ -1,3 +1,8 @@
+import { getToken } from '../api_scripts/queue.js';
+
+getToken();
+
+
 function showQueue() {
     alert("Showing Queue");
 }
@@ -70,3 +75,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     setInterval(createNewGroup, 4000);
 });
+
+

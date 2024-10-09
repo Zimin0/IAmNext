@@ -1,0 +1,318 @@
+<html><head><base href="https://websim.com/">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8ff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    background-color: #0066cc;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header button {
+    background-color: white;
+    color: #0066cc;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0 5px;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header button:hover {
+    background-color: #e6f2ff;
+    color: #004080;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.menu-title {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 20px;
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    padding: 0 20px;
+}
+
+.container {
+    width: 45%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    padding: 40px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.ticket-container {
+    width: 30%;
+    margin-left: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    padding: 40px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    color: #0066cc;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    color: #0066cc;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.form-group textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.submit-btn {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn:hover {
+    background-color: #0052a3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.ticket-status {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #e6f2ff;
+    border-radius: 10px;
+}
+
+.ticket-status h2 {
+    color: #0066cc;
+    margin-bottom: 10px;
+}
+
+.status-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.status-new { background-color: #ffc107; }
+.status-in-progress { background-color: #17a2b8; }
+.status-resolved { background-color: #28a745; }
+
+@media screen and (max-width: 1200px) {
+    .content-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .container, .ticket-container {
+        width: 90%;
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .menu-title {
+        display: none;
+    }
+    
+    .header {
+        justify-content: space-between;
+    }
+    
+    .header-left, .header-right {
+        flex: 1;
+    }
+    
+    .header-left {
+        justify-content: flex-start;
+    }
+    
+    .header-right {
+        justify-content: flex-end;
+    }
+}
+</style>
+</head>
+<body>
+<div class="header">
+    <div class="header-left">
+        <button onclick="showQueue()">Queue</button>
+        <button onclick="showAbout()">About</button>
+    </div>
+    <div class="menu-title">QUEUE.COM</div>
+    <div class="header-right">
+        <button onclick="showContact()">Contact</button>
+        <button onclick="login()">Login</button>
+    </div>
+</div>
+
+<div class="content-wrapper">
+    <div class="container">
+        <h1>Contact Us</h1>
+        
+        <form class="contact-form" id="contactForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Submit Ticket</button>
+        </form>
+    </div>
+
+    <div class="ticket-container">
+        <h2>Your Tickets</h2>
+        <div id="ticketList"></div>
+    </div>
+</div>
+
+<script>
+function showQueue() {
+    alert("Showing Queue");
+}
+
+function showAbout() {
+    alert("Showing About Page");
+}
+
+function showContact() {
+    alert("You are already on the Contact Page");
+}
+
+function login() {
+    alert("Opening Login Form");
+}
+
+// Add animation to containers on page load
+document.addEventListener('DOMContentLoaded', (event) => {
+    const containers = document.querySelectorAll('.container, .ticket-container');
+    containers.forEach(container => {
+        container.style.opacity = '0';
+        container.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            container.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+            container.style.opacity = '1';
+            container.style.transform = 'translateY(0)';
+        }, 100);
+    });
+});
+
+// Form submission handling
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Simulate ticket creation
+    const ticketId = Math.floor(Math.random() * 1000000);
+    
+    // Create new ticket element
+    const ticketElement = document.createElement('div');
+    ticketElement.className = 'ticket-status';
+    ticketElement.innerHTML = `
+        <h3>Ticket #${ticketId}</h3>
+        <p><span class="status-indicator status-new"></span> <span class="status-text">New</span></p>
+    `;
+    
+    // Add new ticket to the list
+    const ticketList = document.getElementById('ticketList');
+    ticketList.insertBefore(ticketElement, ticketList.firstChild);
+    
+    // Simulate status changes
+    setTimeout(() => {
+        ticketElement.querySelector('.status-indicator').className = 'status-indicator status-in-progress';
+        ticketElement.querySelector('.status-text').textContent = 'In Progress';
+    }, 3000);
+    
+    setTimeout(() => {
+        ticketElement.querySelector('.status-indicator').className = 'status-indicator status-resolved';
+        ticketElement.querySelector('.status-text').textContent = 'Resolved';
+    }, 6000);
+
+    this.reset();
+});
+</script>
+</body></html>
