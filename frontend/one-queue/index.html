@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Queue System</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+<div class="header">
+    <div class="header-left">
+        <button onclick="window.location.href='../greetings/'">Queue</button>
+        <button onclick="window.location.href='../new-features/'">New Features</button>
+    </div>
+    <div class="menu-title">QUEUE.COM</div>
+    <div class="header-right">
+        <button onclick="window.location.href='../contact_us/'">Contact</button>
+        <button onclick="window.location.href='../login/'">Login</button>
+    <button id="showBlocksBtn" onclick="toggleBlocks()" style="display: none;">Show Blocks</button>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="side-block" id="description-block">
+        <span class="close-btn" onclick="hideBlock('description-block')">×</span>
+        <h2>Queue Description</h2>
+        <p>This is a minimalist queue system for managing waiting lists efficiently.</p>
+    </div>
+
+    <div class="container">
+        <h1>Minimalist Queue System</h1>
+        <form id="nickname-form" method="GET" action="queue">
+            <input type="text" id="nickname-input" name="nickname" placeholder="Enter your nickname" required>
+            <button type="submit">Join Queue</button>
+        </form>
+        <div id="queue-display"></div>
+    </div>
+
+    <div class="side-block" id="remaining-places-block">
+        <span class="close-btn" onclick="hideBlock('remaining-places-block')">×</span>
+        <h2>Remaining Places</h2>
+        <div class="remaining-places" id="remaining-places"></div>
+    </div>
+</div>
+</body>
+</html>

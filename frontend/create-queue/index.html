@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+<div class="header">
+    <div class="header-left">
+        <button onclick="window.location.href='../greetings/'">Queue</button>
+        <button onclick="window.location.href='../new-features/'">New Features</button>
+    </div>
+    <div class="menu-title">QUEUE.COM</div>
+    <div class="header-right">
+        <button onclick="window.location.href='../contact_us/'">Contact</button>
+        <button onclick="window.location.href='../login/'">Login</button>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Create Queue</h1>
+    
+    <form class="create-form" onsubmit="createQueue(event)">
+        <div class="input-wrapper required">
+            <input type="text" id="queueName" placeholder="Queue Name" required>
+        </div>
+        <div class="input-wrapper required">
+            <input type="number" id="maxParticipants" placeholder="Maximum Number of Participants" min="1" required>
+        </div>
+        <div class="input-wrapper">
+            <textarea id="queueDescription" placeholder="Queue Description" rows="4"></textarea>
+        </div>
+        <label>
+            <input type="checkbox" id="privateAccess">
+            Access by link only
+        </label>
+        <button type="submit">Create Queue</button>
+    </form>
+</div>
+</body>
+</html>

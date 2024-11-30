@@ -1,9 +1,9 @@
 export const base_api_url = "http://localhost:8080";
 
-class Queue {
-    static async getAll(){
-    }
-}
+// class Queue {
+//     static async getAll(){
+//     }
+// }
 
 export async function getToken(){
     const username = "admin";

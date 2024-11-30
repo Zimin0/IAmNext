@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+<div class="header">
+    <div class="header-left">
+        <button onclick="window.location.href='../greetings/'">Queue</button>
+        <button onclick="window.location.href='../greetings/'">About</button>
+    </div>
+    <div class="menu-title">QUEUE.COM</div>
+    <div class="header-right">
+        <button onclick="window.location.href='../contact_us/'">Contact</button>
+        <button onclick="window.location.href='../login/'">Login</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="benefits">
+        <h1>One step away from accessing all Queue.com benefits</h1>
+        <ul>
+            <li>Get exclusive access to tickets for popular shows</li>
+            <li>Use a convenient ticket booking and management system</li>
+            <li>Receive personalized recommendations based on your preferences</li>
+            <li>Participate in special promotions and get discounts on tickets</li>
+        </ul>
+    </div>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        
+        <form class="login-form" onsubmit="loginUser(event)">
+            <div class="input-wrapper">
+                <input type="text" id="email" placeholder="Nickname" required="">
+            </div>
+            <div class="input-wrapper">
+                <input type="password" id="password" placeholder="Password" required="">
+            </div>
+            <a href="https://websim.com/register" class="register-link">Don't have an account? Register</a>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
