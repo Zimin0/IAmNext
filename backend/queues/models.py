@@ -17,7 +17,7 @@ class Queue(models.Model):
 
 
 class QueueJoin(models.Model):
-    """ Промежуточная модель для  ManyToManyField Queue и User. """
+    """ Промежуточная модель для ManyToManyField Queue и User. """
 
     def __str__(self):
         return f"{self.user} в {self.queue}"
