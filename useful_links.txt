@@ -1,0 +1,3 @@
+https://docs.djangoproject.com/en/5.1/topics/cache/
+https://tproger.ru/translations/extending-django-user-model
+https://docs.djangoproject.com/en/dev/topics/db/models/#extra-fields-on-many-to-many-relationships
