@@ -17,7 +17,7 @@
     <div class="header-right">
         <button onclick="window.location.href='../contact_us/'">Contact</button>
         <button onclick="window.location.href='../login/'">Login</button>
-    <button id="showBlocksBtn" onclick="toggleBlocks()" style="display: none;">Show Blocks</button>
+        <button id="showBlocksBtn" onclick="toggleBlocks()" style="display: none;">Show Blocks</button>
     </div>
 </div>
 
@@ -25,11 +25,11 @@
     <div class="side-block" id="description-block">
         <span class="close-btn" onclick="hideBlock('description-block')">×</span>
         <h2>Queue Description</h2>
-        <p>This is a minimalist queue system for managing waiting lists efficiently.</p>
+        <p id="queue-description">This is a minimalist queue system for managing waiting lists efficiently.</p>
     </div>
 
     <div class="container">
-        <h1>Minimalist Queue System</h1>
+        <h1 id="queue-title">Minimalist Queue System</h1>
         <form id="nickname-form" method="GET" action="queue">
             <input type="text" id="nickname-input" name="nickname" placeholder="Enter your nickname" required>
             <button type="submit">Join Queue</button>

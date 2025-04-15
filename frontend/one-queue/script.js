@@ -3,16 +3,44 @@ const nicknameForm = document.getElementById('nickname-form');
 const nicknameInput = document.getElementById('nickname-input');
 const remainingPlacesDisplay = document.getElementById('remaining-places');
 const showBlocksBtn = document.getElementById('showBlocksBtn');
-let queue = ['Alice', 'Bob', 'Charlie'];
-const maxQueueSize = 10;
+
+let queue = [];
+let maxQueueSize = 0;
+
+function getQueueIdFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('id');
+}
+
+async function loadQueueData(queueId) {
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/queues/${queueId}/`);
+        if (!response.ok) {
+            throw new Error('Не удалось загрузить очередь');
+        }
+        const data = await response.json();
+
+        // обновляем значения
+        maxQueueSize = data.max_amount;
+        queue = data.members;
+
+        document.getElementById('queue-title').textContent = data.title;
+        document.getElementById('queue-description').textContent = data.description;
+
+        updateQueueDisplay();
+    } catch (error) {
+        console.error('Ошибка загрузки очереди:', error);
+    }
+}
 
 function updateQueueDisplay() {
     queueDisplay.innerHTML = '';
-    queue.forEach((nickname, index) => {
+
+    queue.forEach((member, index) => {
         const queueItem = document.createElement('div');
         queueItem.className = 'queue-item';
         queueItem.innerHTML = `
-            <span>${index + 1}. ${nickname}</span>
+            <span>${index + 1}. Пользователь #${member}</span>
             <button onclick="leaveQueue(${index})">Leave</button>
         `;
         queueDisplay.appendChild(queueItem);
@@ -30,7 +58,7 @@ function updateQueueDisplay() {
 
 function updateRemainingPlaces() {
     const freePlaces = maxQueueSize - queue.length;
-    remainingPlacesDisplay.textContent = freePlaces;
+    remainingPlacesDisplay.textContent = `${freePlaces}`;
 }
 
 function joinQueue(nickname) {
@@ -79,5 +107,10 @@ function toggleBlocks() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    updateQueueDisplay();
+    const queueId = getQueueIdFromUrl();
+    if (queueId) {
+        loadQueueData(queueId);
+    } else {
+        console.warn('Queue ID не указан в URL');
+    }
 });

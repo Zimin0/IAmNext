@@ -161,4 +161,11 @@ body {
           justify-content: flex-end;
       }
   }
+
+  a.queue {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
   

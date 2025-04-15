@@ -25,6 +25,12 @@ SECRET_KEY = 'django-insecure-js$^bfknv(@ir4!h31jswl@srh)5^5i0hr!1o^30(67+f^^@rg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Разрешить все домены (на время разработки)
+CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOWED_ORIGINS = [
+#     "http://127.0.0.1:8083",
+# ]
+
 ALLOWED_HOSTS = []
 
 
@@ -40,7 +46,8 @@ INSTALLED_APPS = [
     'users',
     'queues',
     'tickets',
-    'rest_framework'
+    'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'iamnext.urls'
